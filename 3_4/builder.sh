@@ -14,4 +14,5 @@ fi
 
 git clone $REPO repo
 docker build -t "$2" repo
+docker login --username $DOCKER_USER --password $DOCKER_PWD
 docker push "$2"
