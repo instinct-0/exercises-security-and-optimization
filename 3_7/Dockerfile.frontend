@@ -1,0 +1,20 @@
+FROM node:16-alpine
+
+WORKDIR /frontend
+
+EXPOSE 5001
+
+
+
+COPY code/example-frontend .
+
+RUN \
+    adduser -D frontend && \
+    chown frontend . && \
+    npm i react-scripts && \
+    REACT_APP_BACKEND_URL="http://localhost:8080/" npm run build && \
+    npm install -g serve && \
+    rm -rf example-frontend/src
+
+USER frontend
+CMD ["serve", "-s", "-l", "5001", "build"]
